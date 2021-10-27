@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	repo           repository.Repository     = repository.NewSqlRepo()
+	repo           repository.Repository     = repository.NewMongoDBRepo()
 	userService    service.UserService       = service.NewUserService(repo)
 	userController controller.UserController = controller.NewUserController(userService)
 	muxrouter      router.Router             = router.NewMuxRouter()
@@ -19,6 +19,5 @@ const port string = ":4000"
 func main() {
 	muxrouter.Post("/user", userController.AddUser)
 	muxrouter.Get("/user", userController.GetUser)
-
 	muxrouter.Serve(port)
 }
