@@ -22,10 +22,11 @@ var (
 		"userID":   1,
 		"name": "Bill"
 	}`)
+	url = "http://localhost:4000/user"
 )
 
 func TestEmptyGetRes(t *testing.T) {
-	r, _ := http.NewRequest("GET", "http://localhost:4000/user", nil)
+	r, _ := http.NewRequest("GET", url, nil)
 
 	w, _ := client.Do(r)
 	assert.Equal(t, http.StatusInternalServerError, w.StatusCode)
@@ -34,14 +35,14 @@ func TestEmptyGetRes(t *testing.T) {
 }
 
 func TestValidPostReq(t *testing.T) {
-	r, _ := http.NewRequest("POST", "http://localhost:4000/user", bytes.NewBuffer(u))
+	r, _ := http.NewRequest("POST", url, bytes.NewBuffer(u))
 
 	w, _ := client.Do(r)
 	assert.Equal(t, http.StatusCreated, w.StatusCode)
 }
 
 func TestInvalidPostReq(t *testing.T) {
-	r, _ := http.NewRequest("POST", "http://localhost:4000/user", bytes.NewBuffer(u))
+	r, _ := http.NewRequest("POST", url, bytes.NewBuffer(u))
 
 	w, _ := client.Do(r)
 	assert.Equal(t, http.StatusInternalServerError, w.StatusCode)
@@ -50,7 +51,7 @@ func TestInvalidPostReq(t *testing.T) {
 }
 
 func TestValidGetRes(t *testing.T) {
-	r, _ := http.NewRequest("GET", "http://localhost:4000/user", nil)
+	r, _ := http.NewRequest("GET", url, nil)
 
 	w, _ := client.Do(r)
 	assert.Equal(t, http.StatusOK, w.StatusCode)
