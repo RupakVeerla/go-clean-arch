@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+    mongodb:
+        image: mongo
+        ports:
+          - "27018:27017"
+    go-poc:
+        image: rupakr/go-poc
+        ports:
+            - "4000:4000"
+        depends_on:
+            - mongodb
